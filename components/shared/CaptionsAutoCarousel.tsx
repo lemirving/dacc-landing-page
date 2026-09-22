@@ -15,21 +15,22 @@ import {
 export interface CarouselImage {
     src: string;
     alt: string;
+    caption?: string;
 }
 
-interface AutoCarouselProps {
+interface CaptionAutoCarouselProps {
     images: CarouselImage[];
     delay?: number;
     className?: string;
     showButtons?: boolean;
 }
 
-export const AutoCarousel = ({
-                                 images,
-                                 delay = 9000,
-                                 className = "aspect-video w-full",
-                                 showButtons = true,
-                             }: AutoCarouselProps) => {
+export const CaptionsAutoCarousel = ({
+                                         images,
+                                         delay = 3000,
+                                         className = "w-full",
+                                         showButtons = true,
+                                     }: CaptionAutoCarouselProps) => {
     const [mounted, setMounted] = React.useState(false)
 
     const autoplayPlugin = React.useMemo(
@@ -45,23 +46,28 @@ export const AutoCarousel = ({
         <div className="w-full relative">
             <Carousel
                 plugins={mounted ? [autoplayPlugin] : []}
-                className="w-full"
+                className={`w-full ${className}`}
             >
                 <CarouselContent>
                     {images.map((img, index) => (
                         <CarouselItem key={index}>
-                            <div className="relative w-full overflow-hidden rounded-3xl">
+                            <div className="relative aspect-[16/9] sm:aspect-[21/9] lg:aspect-[16/9] w-full overflow-hidden rounded-2xl bg-slate-100 dark:bg-slate-900">
                                 <Image
                                     src={img.src}
                                     alt={img.alt}
-                                    width={1200}
-                                    height={900}
-                                    quality={75}
+                                    fill
+                                    quality={80}
                                     priority={index === 0}
                                     sizes="(max-width: 768px) 100vw, 50vw"
-                                    className="h-auto w-full rounded-3xl"
+                                    className="object-cover rounded-2xl"
                                 />
                             </div>
+
+                            {img.caption && (
+                                <p className="mt-2.5 text-center text-sm sm:text-md font-medium text-muted-foreground">
+                                    {img.caption}
+                                </p>
+                            )}
                         </CarouselItem>
                     ))}
                 </CarouselContent>
@@ -77,8 +83,8 @@ export const AutoCarousel = ({
 const CarouselButtons = () => {
     return (
         <>
-            <CarouselPrevious className="hidden sm:flex left-4" />
-            <CarouselNext className="hidden sm:flex right-4" />
+            <CarouselPrevious className="hidden sm:flex left-4 border-none bg-background/80 backdrop-blur-sm hover:bg-background" />
+            <CarouselNext className="hidden sm:flex right-4 border-none bg-background/80 backdrop-blur-sm hover:bg-background" />
         </>
     )
 }

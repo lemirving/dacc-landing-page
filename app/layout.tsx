@@ -29,6 +29,11 @@ export const metadata: Metadata = {
         "Faculdade de Computação",
         "Graduação",
     ],
+    icons: {
+        icon: '/icon-ccomp.png',
+        shortcut: '/icon-ccomp.png',
+        apple: '/icon-ccomp.png',
+    },
 };
 export default function RootLayout({
                                      children,

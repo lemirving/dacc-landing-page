@@ -1,14 +1,16 @@
-import type { ReactNode } from "react";
+import React from 'react';
 
 interface ContainerProps {
-    children: ReactNode;
+    children: React.ReactNode;
     className?: string;
 }
 
 export const Container = ({ children, className = "" }: ContainerProps) => {
     return (
-        <div className={`mx-auto max-w-7xl w-full px-5 sm:px-8 lg:px-5 ${className}`}>
+        <div className={`max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full ${className}`}>
             {children}
         </div>
     );
 };
+
+export default Container;
