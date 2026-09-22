@@ -7,7 +7,7 @@ import { VidaAcademica } from "@/components/sections/VidaAcademica"
 
 export default function Home() {
     return (
-        <main className="px-6 sm:px-8 md:px-12 w-full overflow-x-hidden">
+        <main>
             <Hero />
             <Cursos />
             <Projetos />
