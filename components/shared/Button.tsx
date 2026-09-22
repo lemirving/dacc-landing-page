@@ -1,18 +1,25 @@
-import {React,ReactNode} from 'react'
+import React from 'react'
 import Link from 'next/link'
 
 interface ButtonProps {
-    children: ReactNode;
-    className?: string;
-    onClick?: () => void;
+    text: string
+    href: string
+    className?: string
 }
 
-const Button = ({ onClick, children, className = "" }: ButtonProps) => {
+export const Button = ({ text, href, className = "" }: ButtonProps) => {
+    const isExternal = href.startsWith('http://') || href.startsWith('https://')
+
     return (
-        <button className={`px-6 py-3 rounded-full outline-none cursor-pointer relative overflow-hidden border g-blue-800 ${className}`} onClick={onClick}>
-            {children}
-        </button>
+        <Link
+            href={href}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
+            className={`px-6 py-3 rounded-full bg-primary hover:bg-primary/90 text-white font-semibold text-sm transition-all shadow-sm ${className}`}
+        >
+            {text}
+        </Link>
     )
 }
 
-export default BtnLink
+export default Button
